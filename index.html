@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Vasavi Fireworks - Premium Diwali Crackers & Fireworks. Order online via WhatsApp. Best prices on sparklers, fancy crackers, bombs, rockets and more."/>
+<title>Vasavi Fireworks 🎆 - Premium Diwali Crackers</title>
+<link rel="manifest" href="#"/>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+  :root {
+    --gold: #FFB300;
+    --gold-light: #FFD54F;
+    --orange: #FF6D00;
+    --deep-red: #B71C1C;
+    --purple: #4A148C;
+    --dark-bg: #0D0208;
+    --card-bg: #1A0A1E;
+    --card-border: rgba(255,179,0,0.2);
+    --text: #F5F5F5;
+    --text-muted: #B0B0B0;
+    --whatsapp: #25D366;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--dark-bg);color:var(--text);font-family:'Poppins',sans-serif;overflow-x:hidden;}
+
+  /* CANVAS */
+  #fireworks-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.35;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(13,2,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--card-border);padding:0 1.5rem;}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem;}
+  .nav-logo{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--gold);white-space:nowrap;text-decoration:none;}
+  .nav-logo span{color:var(--orange);}
+  .nav-search{flex:1;max-width:340px;position:relative;}
+  .nav-search input{width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--card-border);border-radius:24px;padding:0.45rem 1rem 0.45rem 2.5rem;color:var(--text);font-size:0.85rem;outline:none;transition:border-color .2s;}
+  .nav-search input:focus{border-color:var(--gold);}
+  .nav-search svg{position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);opacity:0.5;}
+  .nav-links{display:flex;gap:1.2rem;align-items:center;}
+  .nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}
+  .nav-links a:hover{color:var(--gold);}
+  .cart-btn{background:linear-gradient(135deg,var(--orange),var(--deep-red));border:none;border-radius:20px;padding:0.4rem 1rem;color:#fff;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:0.4rem;white-space:nowrap;transition:opacity .2s;}
+  .cart-btn:hover{opacity:0.85;}
+  .cart-count{background:#fff;color:var(--deep-red);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;}
+  .hamburger{display:none;background:none;border:none;color:var(--gold);cursor:pointer;font-size:1.4rem;}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 1.5rem 3rem;position:relative;z-index:1;}
+  .hero-eyebrow{font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:0.9;}
+  .hero h1{font-family:'Cinzel',serif;font-size:clamp(2.2rem,6vw,5rem);font-weight:900;line-height:1.1;margin-bottom:1rem;}
+  .hero h1 .line1{color:var(--gold);}
+  .hero h1 .line2{color:var(--orange);text-shadow:0 0 40px rgba(255,109,0,0.6);}
+  .hero-sub{font-size:clamp(0.9rem,2vw,1.1rem);color:var(--text-muted);max-width:520px;margin:0 auto 2rem;}
+  .hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:30px;padding:0.8rem 2rem;color:#1a0a00;font-weight:700;font-size:0.95rem;cursor:pointer;transition:transform .2s,box-shadow .2s;text-decoration:none;display:inline-block;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,179,0,0.4);}
+  .btn-outline{background:transparent;border:1.5px solid var(--gold);border-radius:30px;padding:0.8rem 2rem;color:var(--gold);font-weight:600;font-size:0.95rem;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+  .btn-outline:hover{background:var(--gold);color:#1a0a00;}
+
+  /* COUNTDOWN */
+  .countdown-bar{background:rgba(255,179,0,0.08);border:1px solid var(--card-border);border-radius:12px;padding:1rem 1.5rem;display:inline-flex;gap:1.5rem;align-items:center;margin-top:2rem;}
+  .countdown-unit{text-align:center;}
+  .countdown-num{font-family:'Cinzel',serif;font-size:1.6rem;color:var(--gold);font-weight:700;display:block;line-height:1;}
+  .countdown-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-top:2px;display:block;}
+  .countdown-sep{font-size:1.4rem;color:var(--gold);opacity:0.5;margin-top:-4px;}
+
+  /* SECTIONS */
+  section{position:relative;z-index:1;}
+  .section-header{text-align:center;margin-bottom:2.5rem;}
+  .section-eyebrow{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+  .section-title{font-family:'Cinzel',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);color:var(--text);}
+  .section-title span{color:var(--orange);}
+  .container{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
+  .section-pad{padding:5rem 0;}
+
+  /* CATEGORY NAV */
+  .cat-nav{background:rgba(26,10,30,0.95);border-bottom:1px solid var(--card-border);position:sticky;top:64px;z-index:900;overflow-x:auto;scrollbar-width:none;}
+  .cat-nav::-webkit-scrollbar{display:none;}
+  .cat-nav-inner{max-width:1200px;margin:0 auto;display:flex;gap:0.5rem;padding:0.7rem 1.5rem;white-space:nowrap;}
+  .cat-pill{background:transparent;border:1px solid rgba(255,179,0,0.25);border-radius:20px;padding:0.35rem 1rem;color:var(--text-muted);font-size:0.8rem;cursor:pointer;transition:all .2s;white-space:nowrap;}
+  .cat-pill:hover,.cat-pill.active{background:var(--gold);border-color:var(--gold);color:#1a0a00;font-weight:600;}
+
+  /* FILTERS */
+  .filters-bar{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:2rem;padding:1rem 1.25rem;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;}
+  .filters-bar select{background:rgba(255,255,255,0.07);border:1px solid var(--card-border);border-radius:8px;padding:0.4rem 0.75rem;color:var(--text);font-size:0.82rem;outline:none;cursor:pointer;}
+  .filters-bar label{font-size:0.8rem;color:var(--text-muted);}
+  .price-range{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--text-muted);}
+  .price-range input[type=range]{accent-color:var(--gold);width:100px;}
+
+  /* PRODUCT GRID */
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;}
+  .product-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;}
+  .product-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 12px 30px rgba(255,179,0,0.15);}
+  .product-img{width:100%;height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,rgba(255,109,0,0.1),rgba(74,20,140,0.15));position:relative;overflow:hidden;}
+  .product-img .zoom-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;font-size:0.8rem;color:#fff;letter-spacing:0.05em;}
+  .product-card:hover .zoom-overlay{opacity:1;}
+  .product-body{padding:1rem;}
+  .product-category-tag{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.3rem;}
+  .product-name{font-size:0.9rem;font-weight:600;margin-bottom:0.2rem;line-height:1.3;}
+  .product-qty-info{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.6rem;}
+  .product-price{font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:0.8rem;}
+  .product-price span{font-size:0.75rem;font-weight:400;color:var(--text-muted);}
+  .product-actions{display:flex;gap:0.5rem;align-items:center;}
+  .qty-ctrl{display:flex;align-items:center;gap:0.3rem;background:rgba(255,255,255,0.05);border-radius:8px;padding:0.2rem 0.4rem;}
+  .qty-ctrl button{background:none;border:none;color:var(--gold);font-size:1.1rem;cursor:pointer;width:22px;height:22px;display:flex;align-items:center;justify-content:center;line-height:1;}
+  .qty-ctrl span{font-size:0.85rem;min-width:20px;text-align:center;}
+  .add-to-cart{flex:1;background:linear-gradient(135deg,var(--orange),var(--deep-red));border:none;border-radius:8px;padding:0.5rem;color:#fff;font-size:0.78rem;font-weight:600;cursor:pointer;transition:opacity .2s;}
+  .add-to-cart:hover{opacity:0.85;}
+  .wishlist-btn{background:none;border:1px solid var(--card-border);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s;font-size:1rem;}
+  .wishlist-btn.active,.wishlist-btn:hover{border-color:#e91e63;color:#e91e63;}
+  .in-cart-badge{position:absolute;top:10px;right:10px;background:var(--gold);color:#1a0a00;font-size:0.65rem;font-weight:700;border-radius:10px;padding:2px 7px;}
+
+  /* WHY US */
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem;}
+  .why-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:1.5rem;text-align:center;}
+  .why-icon{font-size:2.2rem;margin-bottom:0.75rem;}
+  .why-card h3{font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;color:var(--gold);}
+  .why-card p{font-size:0.8rem;color:var(--text-muted);line-height:1.5;}
+
+  /* SAFETY */
+  .safety-section{background:linear-gradient(135deg,rgba(183,28,28,0.12),rgba(74,20,140,0.12));border:1px solid rgba(183,28,28,0.25);border-radius:16px;padding:2rem;}
+  .safety-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1.5rem;}
+  .safety-item{display:flex;gap:0.75rem;align-items:flex-start;}
+  .safety-item .icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+  .safety-item p{font-size:0.82rem;color:var(--text-muted);line-height:1.5;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+  @media(max-width:700px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-info{display:flex;flex-direction:column;gap:1rem;}
+  .contact-item{display:flex;gap:0.75rem;align-items:center;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:1rem;}
+  .contact-item .icon{font-size:1.5rem;}
+  .contact-item h4{font-size:0.85rem;font-weight:600;color:var(--gold);}
+  .contact-item p{font-size:0.8rem;color:var(--text-muted);}
+
+  /* FOOTER */
+  footer{background:#080108;border-top:1px solid var(--card-border);padding:2rem 1.5rem;text-align:center;}
+  footer p{font-size:0.78rem;color:var(--text-muted);}
+  footer .footer-brand{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.5rem;}
+
+  /* CART SIDEBAR */
+  .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:2000;display:none;}
+  .cart-overlay.open{display:block;}
+  .cart-sidebar{position:fixed;right:0;top:0;height:100%;width:min(420px,100vw);background:#130618;border-left:1px solid var(--card-border);z-index:2001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s;}
+  .cart-sidebar.open{transform:translateX(0);}
+  .cart-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--card-border);display:flex;justify-content:space-between;align-items:center;}
+  .cart-header h2{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);}
+  .cart-close{background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;}
+  .cart-items{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;}
+  .cart-item{background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:0.85rem;display:flex;gap:0.75rem;align-items:center;}
+  .cart-item-emoji{font-size:1.8rem;flex-shrink:0;}
+  .cart-item-info{flex:1;min-width:0;}
+  .cart-item-name{font-size:0.83rem;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .cart-item-price{font-size:0.78rem;color:var(--gold);}
+  .cart-item-qty{display:flex;align-items:center;gap:0.4rem;margin-top:0.4rem;}
+  .cart-item-qty button{background:rgba(255,255,255,0.08);border:none;border-radius:4px;width:22px;height:22px;color:var(--text);cursor:pointer;font-size:0.9rem;}
+  .cart-item-qty span{font-size:0.82rem;min-width:18px;text-align:center;}
+  .cart-remove{background:none;border:none;color:#e91e63;cursor:pointer;font-size:1.1rem;padding:0 0.25rem;}
+  .cart-footer{padding:1.25rem 1.5rem;border-top:1px solid var(--card-border);}
+  .cart-total{display:flex;justify-content:space-between;margin-bottom:1rem;font-size:1rem;font-weight:600;}
+  .cart-total span{color:var(--gold);}
+  .empty-cart{text-align:center;padding:3rem 1rem;color:var(--text-muted);font-size:0.9rem;}
+  .empty-cart div{font-size:3rem;margin-bottom:0.75rem;}
+
+  /* ORDER FORM MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:3000;display:none;align-items:center;justify-content:center;padding:1rem;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:#130618;border:1px solid var(--card-border);border-radius:20px;width:min(500px,100%);max-height:90vh;overflow-y:auto;}
+  .modal-header{padding:1.5rem;border-bottom:1px solid var(--card-border);display:flex;justify-content:space-between;align-items:center;}
+  .modal-header h2{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);}
+  .modal-body{padding:1.5rem;display:flex;flex-direction:column;gap:1rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;}
+  .form-group label{font-size:0.8rem;color:var(--text-muted);}
+  .form-group input,.form-group textarea,.form-group select{background:rgba(255,255,255,0.06);border:1px solid var(--card-border);border-radius:8px;padding:0.65rem 0.9rem;color:var(--text);font-size:0.88rem;outline:none;transition:border-color .2s;font-family:'Poppins',sans-serif;}
+  .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+  .form-error{font-size:0.72rem;color:#ef5350;}
+  .order-summary-mini{background:rgba(255,179,0,0.06);border:1px solid var(--card-border);border-radius:10px;padding:1rem;}
+  .order-summary-mini h4{font-size:0.82rem;color:var(--gold);margin-bottom:0.5rem;}
+  .order-summary-mini p{font-size:0.78rem;color:var(--text-muted);}
+  .whatsapp-order-btn{background:var(--whatsapp);border:none;border-radius:12px;padding:1rem;color:#fff;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;transition:opacity .2s;}
+  .whatsapp-order-btn:hover{opacity:0.88;}
+
+  /* FLOATING WHATSAPP */
+  .float-wa{position:fixed;bottom:1.75rem;right:1.5rem;z-index:1500;background:var(--whatsapp);border:none;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:transform .2s;}
+  .float-wa:hover{transform:scale(1.1);}
+  .float-wa svg{width:28px;height:28px;fill:#fff;}
+
+  /* DIYA DECORATIONS */
+  .diya-row{display:flex;justify-content:center;gap:1.5rem;margin:1.5rem 0;font-size:1.8rem;opacity:0.7;}
+
+  /* THEME TOGGLE */
+  .theme-toggle{background:none;border:1px solid var(--card-border);border-radius:20px;padding:0.3rem 0.75rem;color:var(--text-muted);font-size:0.75rem;cursor:pointer;display:flex;align-items:center;gap:0.4rem;}
+
+  /* LIGHT THEME */
+  body.light{--dark-bg:#FFF8E7;--card-bg:#FFF3CD;--card-border:rgba(255,109,0,0.25);--text:#1a0a00;--text-muted:#5a3e1b;}
+  body.light nav{background:rgba(255,248,231,0.95);}
+  body.light .cat-nav{background:rgba(255,243,205,0.97);}
+
+  /* ADMIN PANEL */
+  .admin-panel{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.5rem;margin-top:2rem;}
+  .admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin:1.25rem 0;}
+  .admin-stat{background:rgba(255,179,0,0.08);border:1px solid var(--card-border);border-radius:10px;padding:1rem;text-align:center;}
+  .admin-stat-num{font-size:1.6rem;font-weight:700;color:var(--gold);}
+  .admin-stat-label{font-size:0.72rem;color:var(--text-muted);margin-top:2px;}
+  .admin-orders{margin-top:1.25rem;}
+  .admin-order-row{border:1px solid var(--card-border);border-radius:8px;padding:0.75rem 1rem;margin-bottom:0.5rem;font-size:0.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;}
+  .order-status{background:rgba(37,211,102,0.15);color:#25D366;border-radius:12px;padding:2px 10px;font-size:0.7rem;font-weight:600;}
+
+  @media(max-width:768px){
+    .nav-links{display:none;}
+    .hamburger{display:block;}
+    .products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+    .form-row{grid-template-columns:1fr;}
+    .hero h1{font-size:2rem;}
+    .countdown-bar{gap:0.75rem;}
+    .countdown-num{font-size:1.2rem;}
+    .nav-search{max-width:160px;}
+  }
+  @media(max-width:480px){
+    .products-grid{grid-template-columns:repeat(2,1fr);}
+    .nav-search{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="fireworks-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home">🎆 <span>Vasavi</span> Fireworks</a>
+    <div class="nav-search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search products…" oninput="filterProducts()"/>
+    </div>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#why-us">About</a>
+      <a href="#safety">Safety</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙 Theme</button>
+    </div>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Cart <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" style="display:none;position:fixed;top:64px;left:0;width:100%;background:#130618;border-bottom:1px solid var(--card-border);z-index:999;padding:1rem 1.5rem;flex-direction:column;gap:1rem;">
+  <input type="text" id="mobileSearch" placeholder="Search products…" oninput="syncSearch(this)" style="background:rgba(255,255,255,0.07);border:1px solid var(--card-border);border-radius:24px;padding:0.5rem 1rem;color:var(--text);font-size:0.85rem;outline:none;width:100%;">
+  <a href="#products" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;" onclick="closeMobileMenu()">Products</a>
+  <a href="#why-us" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;" onclick="closeMobileMenu()">About</a>
+  <a href="#safety" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;" onclick="closeMobileMenu()">Safety</a>
+  <a href="#contact" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;" onclick="closeMobileMenu()">Contact</a>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙 Theme</button>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <p class="hero-eyebrow">🪔 Celebrate Diwali with Vasavi Fireworks 🪔</p>
+  <h1><span class="line1">Vasavi</span><br/><span class="line2">Fireworks</span></h1>
+  <p class="hero-sub">Premium quality crackers at unbeatable retail prices. Order via WhatsApp — fast, easy & trusted.</p>
+  <div class="hero-ctas">
+    <a href="#products" class="btn-primary">🎆 Shop Now</a>
+    <a href="https://wa.me/919989113213" target="_blank" class="btn-outline">💬 WhatsApp Us</a>
+  </div>
+  <div class="countdown-bar" id="countdown">
+    <div class="countdown-unit"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label">Days</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-hrs">00</span><span class="countdown-label">Hours</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-min">00</span><span class="countdown-label">Mins</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-sec">00</span><span class="countdown-label">Secs</span></div>
+  </div>
+  <p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">🎇 Countdown to Diwali 2025</p>
+</section>
+
+<!-- CATEGORY NAV -->
+<div class="cat-nav" id="catNav">
+  <div class="cat-nav-inner" id="catPills">
+    <button class="cat-pill active" onclick="filterCategory('All')">✨ All Products</button>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section-pad" id="products">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">🎇 Our Collection</p>
+      <h2 class="section-title">All <span>Products</span></h2>
+    </div>
+    <div class="filters-bar">
+      <select id="sortSelect" onchange="filterProducts()">
+        <option value="default">Sort: Default</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+        <option value="name">Name: A–Z</option>
+      </select>
+      <div class="price-range">
+        <label>Max ₹</label>
+        <input type="range" id="priceFilter" min="5" max="1500" value="1500" step="5" oninput="updatePriceLabel();filterProducts()"/>
+        <span id="priceLabel">₹1500</span>
+      </div>
+      <div style="font-size:0.8rem;color:var(--text-muted);margin-left:auto;" id="resultCount"></div>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section-pad" id="why-us" style="background:rgba(74,20,140,0.05);">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">🌟 Why Vasavi</p>
+      <h2 class="section-title">Why Choose <span>Us</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">✅</div><h3>Certified Quality</h3><p>All products are licensed and certified for safety — only the best brands.</p></div>
+      <div class="why-card"><div class="why-icon">💰</div><h3>Best Retail Prices</h3><p>Direct from manufacturers. No hidden charges. Prices you can trust.</p></div>
+      <div class="why-card"><div class="why-icon">📦</div><h3>Variety of 100+ Items</h3><p>Sparklers, fancy, bombs, flower pots, ground chakkars and more.</p></div>
+      <div class="why-card"><div class="why-icon">💬</div><h3>WhatsApp Orders</h3><p>Simple, fast and personal order process via WhatsApp. No payment risk.</p></div>
+      <div class="why-card"><div class="why-icon">🚀</div><h3>Quick Delivery</h3><p>Local delivery available. Order today, celebrate tomorrow.</p></div>
+      <div class="why-card"><div class="why-icon">🪔</div><h3>Festive Experience</h3><p>Making every Diwali, wedding and celebration truly memorable since years.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="section-pad" id="safety">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">🛡️ Stay Safe</p>
+      <h2 class="section-title">Safety <span>Instructions</span></h2>
+    </div>
+    <div class="safety-section">
+      <p style="font-size:0.85rem;color:var(--text-muted);">Your safety is our top priority. Please follow these guidelines when using fireworks.</p>
+      <div class="safety-grid">
+        <div class="safety-item"><div class="icon">👁️</div><p>Always supervise children. Never let children handle fireworks alone.</p></div>
+        <div class="safety-item"><div class="icon">🔥</div><p>Keep a bucket of water or sand nearby at all times when lighting fireworks.</p></div>
+        <div class="safety-item"><div class="icon">👐</div><p>Light fireworks at arm's length and move away immediately after lighting.</p></div>
+        <div class="safety-item"><div class="icon">🌬️</div><p>Never use indoors. Always use fireworks in open, ventilated outdoor areas.</p></div>
+        <div class="safety-item"><div class="icon">👗</div><p>Wear cotton clothing. Keep loose or synthetic clothing away from fireworks.</p></div>
+        <div class="safety-item"><div class="icon">♻️</div><p>Dispose used fireworks in water before discarding. Never re-light dud fireworks.</p></div>
+        <div class="safety-item"><div class="icon">🌳</div><p>Keep fireworks away from dry grass, trees and flammable materials.</p></div>
+        <div class="safety-item"><div class="icon">📞</div><p>Emergency: Fire — 101 | Ambulance — 108 | Police — 100</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section-pad" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">📞 Reach Us</p>
+      <h2 class="section-title">Contact <span>Us</span></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item"><div class="icon">📞</div><div><h4>Phone / WhatsApp</h4><p>+91 9989113213</p></div></div>
+        <div class="contact-item"><div class="icon">📍</div><div><h4>Location</h4><p>Vasavi Fireworks Store, Narsingi, Medak, Telangana - 502258</p></div></div>
+        <div class="contact-item"><div class="icon">🕐</div><div><h4>Business Hours</h4><p>Mon–Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 7 PM</p></div></div>
+        <div class="contact-item"><div class="icon">💬</div><div><h4>Quick Order</h4><p>WhatsApp us to place orders instantly. We respond within minutes!</p></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="diya-row">🪔 🎆 🎇 ✨ 🎆 🪔</div>
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.5rem;text-align:center;">
+          <h3 style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.75rem;">Place Your Order Instantly</h3>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;">Add products to your cart and send your order directly via WhatsApp. Fast, simple, and trusted.</p>
+          <button class="btn-primary" onclick="openCart()">🛒 View Cart & Order</button>
+        </div>
+        <div style="background:rgba(37,211,102,0.07);border:1px solid rgba(37,211,102,0.2);border-radius:12px;padding:1rem;font-size:0.8rem;color:var(--text-muted);text-align:center;">
+          💬 Direct WhatsApp: <a href="https://wa.me/919989113213" target="_blank" style="color:var(--whatsapp);font-weight:600;">+91 9989113213</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN PANEL -->
+<section class="section-pad" id="admin" style="background:rgba(0,0,0,0.3);">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">⚙️ Admin</p>
+      <h2 class="section-title">Admin <span>Dashboard</span></h2>
+    </div>
+    <div class="admin-panel">
+      <div class="admin-grid">
+        <div class="admin-stat"><div class="admin-stat-num" id="stat-total-orders">0</div><div class="admin-stat-label">Total Orders</div></div>
+        <div class="admin-stat"><div class="admin-stat-num" id="stat-products">0</div><div class="admin-stat-label">Total Products</div></div>
+        <div class="admin-stat"><div class="admin-stat-num" id="stat-categories">0</div><div class="admin-stat-label">Categories</div></div>
+        <div class="admin-stat"><div class="admin-stat-num" id="stat-wishlist">0</div><div class="admin-stat-label">Wishlisted</div></div>
+      </div>
+      <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.75rem;">📋 Recent Orders</h3>
+      <div id="adminOrders"><p style="font-size:0.82rem;color:var(--text-muted);">No orders yet. Orders placed via WhatsApp will appear here.</p></div>
+      <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--card-border);">
+        <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.75rem;">🏆 Popular Products</h3>
+        <div id="popularProducts" style="font-size:0.82rem;color:var(--text-muted);">Add products to cart to see popularity stats.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">🎆 Vasavi Fireworks 🎆</div>
+  <p>Premium Diwali Crackers | WhatsApp: +91 9989113213</p>
+  <p style="margin-top:0.5rem;">© 2025 Vasavi Fireworks. All rights reserved. | Use fireworks responsibly 🪔</p>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>🛒 Your Cart</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total">Total: <span id="cartTotal">₹0</span></div>
+    <button class="whatsapp-order-btn" id="checkoutBtn" onclick="openOrderForm()">
+      📋 Enter Details & Order via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- ORDER FORM MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🪔 Complete Your Order</h2>
+      <button class="cart-close" onclick="closeOrderForm()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="order-summary-mini">
+        <h4>📦 Order Summary</h4>
+        <div id="orderSummaryMini"></div>
+      </div>
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" id="custName" placeholder="Your full name"/>
+        <span class="form-error" id="err-name"></span>
+      </div>
+      <div class="form-group">
+        <label>Mobile Number *</label>
+        <input type="tel" id="custPhone" placeholder="+91 XXXXXXXXXX"/>
+        <span class="form-error" id="err-phone"></span>
+      </div>
+      <div class="form-group">
+        <label>Delivery Address *</label>
+        <textarea id="custAddress" rows="2" placeholder="House/Flat No, Street, Landmark"></textarea>
+        <span class="form-error" id="err-address"></span>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>City *</label>
+          <input type="text" id="custCity" placeholder="City"/>
+          <span class="form-error" id="err-city"></span>
+        </div>
+        <div class="form-group">
+          <label>State *</label>
+          <input type="text" id="custState" placeholder="State" value="Andhra Pradesh"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Pincode *</label>
+          <input type="text" id="custPin" placeholder="Pincode"/>
+          <span class="form-error" id="err-pin"></span>
+        </div>
+        <div class="form-group">
+          <label>Total Amount</label>
+          <input type="text" id="custTotal" readonly style="opacity:0.7;"/>
+        </div>
+      </div>
+      <button class="whatsapp-order-btn" onclick="placeWhatsAppOrder()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Place Order via WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<button class="float-wa" title="Chat on WhatsApp" onclick="window.open('https://wa.me/919989113213','_blank')">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</button>
+
+<script>
+// ===================== DATA =====================
+const WHATSAPP_NUMBER = '919989113213';
+
+const PRODUCTS = [
+  // ---- FANCY & SPARKLERS ----
+  {id:1,name:'Pop Ups',category:'Fancy Crackers',qty:'50pcs',price:10,emoji:'🎊'},
+  {id:2,name:'Cold Fires',category:'Fancy Crackers',qty:'6pcs',price:100,emoji:'❄️'},
+  {id:3,name:'Musical Torch',category:'Fancy Crackers',qty:'5pcs',price:100,emoji:'🔦'},
+  {id:4,name:'1000k Fancy Stick',category:'Fancy Crackers',qty:'2pcs',price:150,emoji:'✨'},
+  {id:5,name:'Selfie Stick',category:'Fancy Crackers',qty:'5pcs',price:70,emoji:'🤳'},
+  {id:6,name:'Cold Fires Guns',category:'Fancy Crackers',qty:'1pc',price:250,emoji:'🔫'},
+  {id:7,name:'Photo Flash',category:'Fancy Crackers',qty:'5pcs',price:20,emoji:'📸'},
+  {id:8,name:'Helicopter',category:'Fancy Crackers',qty:'5pcs',price:40,emoji:'🚁'},
+  {id:9,name:'Drone',category:'Fancy Crackers',qty:'5pcs',price:45,emoji:'🚀'},
+  {id:10,name:'Ganga Jamuna',category:'Fancy Crackers',qty:'5pcs',price:30,emoji:'🌊'},
+  {id:11,name:'Peacock',category:'Fancy Crackers',qty:'1pc',price:200,emoji:'🦚'},
+  {id:12,name:'Shower Mix',category:'Fancy Crackers',qty:'1pc',price:70,emoji:'🚿'},
+  {id:13,name:'Holli Shower',category:'Fancy Crackers',qty:'1pc',price:80,emoji:'🎨'},
+  {id:14,name:'Butterfly',category:'Fancy Crackers',qty:'10pcs',price:30,emoji:'🦋'},
+  {id:15,name:'Single Shot',category:'Fancy Crackers',qty:'1pc',price:90,emoji:'🎯'},
+  {id:16,name:'Single Shot Multi Colour',category:'Fancy Crackers',qty:'1pc',price:250,emoji:'🌈'},
+  {id:17,name:'Single Shot Fancy',category:'Fancy Crackers',qty:'1pc',price:180,emoji:'🎆'},
+  {id:18,name:'Single Shot Multi Colour Fancy',category:'Fancy Crackers',qty:'1pc',price:450,emoji:'🎇'},
+  {id:19,name:'Crackling King',category:'Fancy Crackers',qty:'1pc',price:400,emoji:'👑'},
+  {id:20,name:'Angry Bird / Ben 10',category:'Fancy Crackers',qty:'1pc',price:500,emoji:'🐦'},
+  {id:21,name:'Beedi Bomb',category:'Fancy Crackers',qty:'1pc',price:20,emoji:'💣'},
+  {id:22,name:'7 Shots',category:'Fancy Crackers',qty:'1pc',price:250,emoji:'💥'},
+  {id:23,name:'12 Shots',category:'Fancy Crackers',qty:'1pc',price:200,emoji:'💥'},
+  {id:24,name:'12 Shots Fancy',category:'Fancy Crackers',qty:'1pc',price:250,emoji:'🎆'},
+  {id:25,name:'12 Shots Very Fancy',category:'Fancy Crackers',qty:'1pc',price:350,emoji:'🎇'},
+  {id:26,name:'15 Shots Fancy',category:'Fancy Crackers',qty:'1pc',price:450,emoji:'🎆'},
+  {id:27,name:'25 Shots',category:'Fancy Crackers',qty:'1pc',price:450,emoji:'💥'},
+  {id:28,name:'30 Shots',category:'Fancy Crackers',qty:'1pc',price:600,emoji:'💥'},
+  {id:29,name:'60 Shots',category:'Fancy Crackers',qty:'1pc',price:950,emoji:'🚀'},
+  // Sparklers
+  {id:30,name:'Zommer Sparkler',category:'Sparklers',qty:'1pc',price:250,emoji:'✨'},
+  {id:31,name:'7cm Plain Sparkler',category:'Sparklers',qty:'1box',price:20,emoji:'🌟'},
+  {id:32,name:'7cm Kankar Sparkler',category:'Sparklers',qty:'1box',price:20,emoji:'⭐'},
+  {id:33,name:'7cm Red Sparkler',category:'Sparklers',qty:'1box',price:20,emoji:'🔴'},
+  {id:34,name:'7cm Green Sparkler',category:'Sparklers',qty:'1box',price:20,emoji:'🟢'},
+  {id:35,name:'10cm Plain Sparkler',category:'Sparklers',qty:'1box',price:30,emoji:'✨'},
+  {id:36,name:'10cm Red Sparkler',category:'Sparklers',qty:'1box',price:30,emoji:'🔴'},
+  {id:37,name:'10cm Green Sparkler',category:'Sparklers',qty:'1box',price:30,emoji:'🟢'},
+  {id:38,name:'15cm Plain Sparkler',category:'Sparklers',qty:'1box',price:50,emoji:'🌟'},
+  {id:39,name:'15cm Red Sparkler',category:'Sparklers',qty:'1box',price:50,emoji:'🔴'},
+  {id:40,name:'15cm Green Sparkler',category:'Sparklers',qty:'1box',price:50,emoji:'🟢'},
+  {id:41,name:'15cm Kankar Sparkler',category:'Sparklers',qty:'1box',price:50,emoji:'⭐'},
+  {id:42,name:'30cm Plain Sparkler',category:'Sparklers',qty:'1box',price:70,emoji:'✨'},
+  {id:43,name:'30cm Red Sparkler',category:'Sparklers',qty:'1box',price:150,emoji:'🔴'},
+  {id:44,name:'30cm Green Sparkler',category:'Sparklers',qty:'1box',price:150,emoji:'🟢'},
+  {id:45,name:'30cm Super Mix Stump',category:'Sparklers',qty:'1box',price:200,emoji:'🌈'},
+  {id:46,name:'50cm Stump',category:'Sparklers',qty:'1box',price:300,emoji:'🏆'},
+  // ---- FLOWER POTS & GROUND CHAKKAR ----
+  {id:47,name:'F.P Small',category:'Flower Pots',qty:'10pcs',price:5,emoji:'🌼'},
+  {id:48,name:'F.P Big',category:'Flower Pots',qty:'10pcs',price:10,emoji:'🌻'},
+  {id:49,name:'F.P Special',category:'Flower Pots',qty:'10pcs',price:15,emoji:'🌺'},
+  {id:50,name:'F.P Ashoka',category:'Flower Pots',qty:'10pcs',price:20,emoji:'🎋'},
+  {id:51,name:'F.P Ashoka Legend',category:'Flower Pots',qty:'10pcs',price:20,emoji:'🌸'},
+  {id:52,name:'F.P Color Koti',category:'Flower Pots',qty:'10pcs',price:30,emoji:'🎨'},
+  {id:53,name:'F.P Color Koti Deluxe',category:'Flower Pots',qty:'10pcs',price:50,emoji:'🎆'},
+  {id:54,name:'F.P Super Deluxe',category:'Flower Pots',qty:'2pcs',price:90,emoji:'🌠'},
+  {id:55,name:'F.P Super Deluxe Legend',category:'Flower Pots',qty:'2pcs',price:100,emoji:'🏆'},
+  {id:56,name:'Tri Color Pot',category:'Flower Pots',qty:'5pcs',price:90,emoji:'🇮🇳'},
+  {id:57,name:'Pots Mini',category:'Flower Pots',qty:'5pcs',price:70,emoji:'🌼'},
+  {id:58,name:'Pots Medium',category:'Flower Pots',qty:'5pcs',price:90,emoji:'🌻'},
+  {id:59,name:'Pots 2-in-1 Color',category:'Flower Pots',qty:'5pcs',price:100,emoji:'🎨'},
+  {id:60,name:'Pots Deluxe',category:'Flower Pots',qty:'4pcs',price:180,emoji:'🌠'},
+  {id:61,name:'G.C Small',category:'Ground Chakkars',qty:'10pcs',price:5,emoji:'🌀'},
+  {id:62,name:'G.C Ashoka',category:'Ground Chakkars',qty:'10pcs',price:10,emoji:'🌀'},
+  {id:63,name:'G.C Special',category:'Ground Chakkars',qty:'10pcs',price:20,emoji:'🌀'},
+  {id:64,name:'G.C Deluxe',category:'Ground Chakkars',qty:'10pcs',price:30,emoji:'🌀'},
+  {id:65,name:'G.C Special Fancy',category:'Ground Chakkars',qty:'10pcs',price:30,emoji:'🎇'},
+  {id:66,name:'G.C Deluxe Fancy',category:'Ground Chakkars',qty:'10pcs',price:40,emoji:'🎆'},
+  {id:67,name:'G.C Music Fancy',category:'Ground Chakkars',qty:'5pcs',price:70,emoji:'🎵'},
+  {id:68,name:'Threads Small',category:'Ground Chakkars',qty:'10pcs',price:5,emoji:'🧵'},
+  {id:69,name:'Threads Big',category:'Ground Chakkars',qty:'10pcs',price:10,emoji:'🧵'},
+  {id:70,name:'Threads Fancy',category:'Ground Chakkars',qty:'10pcs',price:15,emoji:'🎀'},
+  {id:71,name:'12 Inch Pencil',category:'Ground Chakkars',qty:'10pcs',price:15,emoji:'✏️'},
+  {id:72,name:'18 Inch Pencil',category:'Ground Chakkars',qty:'10pcs',price:25,emoji:'✏️'},
+  {id:73,name:'Whistle Pencil',category:'Ground Chakkars',qty:'10pcs',price:30,emoji:'🎺'},
+  {id:74,name:'Chit Phat',category:'Ground Chakkars',qty:'10pcs',price:5,emoji:'💢'},
+  // ---- LAXMI BOMBS ----
+  {id:75,name:'Deepavali 250pcs',category:'Laxmi Bombs',qty:'250pcs',price:400,emoji:'🎉'},
+  {id:76,name:'Pitta',category:'Laxmi Bombs',qty:'25pcs',price:15,emoji:'💫'},
+  {id:77,name:'3½ Inch Laxmi 10pcs',category:'Laxmi Bombs',qty:'10pcs',price:30,emoji:'🪔'},
+  {id:78,name:'3½ Inch Laxmi 15pcs',category:'Laxmi Bombs',qty:'15pcs',price:30,emoji:'🪔'},
+  {id:79,name:'4 Inch Laxmi',category:'Laxmi Bombs',qty:'10pcs',price:40,emoji:'🪔'},
+  {id:80,name:'4 Inch Laxmi Deluxe',category:'Laxmi Bombs',qty:'10pcs',price:50,emoji:'🪔'},
+  {id:81,name:'Gold Laxmi Deluxe',category:'Laxmi Bombs',qty:'10pcs',price:60,emoji:'🥇'},
+  {id:82,name:'5 Inch Laxmi Deluxe',category:'Laxmi Bombs',qty:'10pcs',price:70,emoji:'🪔'},
+  {id:83,name:'5 Inch Thunder Bomb Laxmi',category:'Laxmi Bombs',qty:'10pcs',price:90,emoji:'⚡'},
+  {id:84,name:'6 Inch Big Bomb Laxmi',category:'Laxmi Bombs',qty:'10pcs',price:100,emoji:'💣'},
+  // ---- ATOM BOMBS ----
+  {id:85,name:'Bullet Bomb',category:'Atom Bombs',qty:'10pcs',price:5,emoji:'🔫'},
+  {id:86,name:'Atom Bomb',category:'Atom Bombs',qty:'10pcs',price:10,emoji:'☢️'},
+  {id:87,name:'Hydrogen Bomb',category:'Atom Bombs',qty:'10pcs',price:15,emoji:'💥'},
+  {id:88,name:'King Bomb',category:'Atom Bombs',qty:'10pcs',price:30,emoji:'👑'},
+  {id:89,name:'Vineer Deluxe Bomb',category:'Atom Bombs',qty:'10pcs',price:40,emoji:'💣'},
+  {id:90,name:'Kiwiti Deluxe Bomb',category:'Atom Bombs',qty:'10pcs',price:40,emoji:'💣'},
+  {id:91,name:'Digital Bomb',category:'Atom Bombs',qty:'10pcs',price:50,emoji:'📱'},
+  {id:92,name:'¼ kg Paper Bomb',category:'Atom Bombs',qty:'1pc',price:90,emoji:'📦'},
+  {id:93,name:'½ kg Paper Bomb',category:'Atom Bombs',qty:'1pc',price:180,emoji:'📦'},
+  {id:94,name:'1 kg Paper Bomb',category:'Atom Bombs',qty:'1pc',price:360,emoji:'📦'},
+  // ---- STRING CRACKERS ----
+  {id:95,name:'28 Chores',category:'String Crackers',qty:'1pc',price:50,emoji:'🎊'},
+  {id:96,name:'24 Deluxe Chores',category:'String Crackers',qty:'1pc',price:80,emoji:'🎊'},
+  {id:97,name:'100 Wala',category:'String Crackers',qty:'1pc',price:60,emoji:'🎉'},
+  {id:98,name:'300 Wala',category:'String Crackers',qty:'1pc',price:150,emoji:'🎉'},
+  {id:99,name:'1000 Wala',category:'String Crackers',qty:'1pc',price:250,emoji:'🎉'},
+  {id:100,name:'2000 Wala',category:'String Crackers',qty:'1pc',price:450,emoji:'🎊'},
+  {id:101,name:'5000 Wala',category:'String Crackers',qty:'1pc',price:1200,emoji:'🏆'},
+  // ---- BIJILI / ROCKETS ----
+  {id:102,name:'CAT Bijili',category:'Rockets',qty:'1pc',price:60,emoji:'⚡'},
+  {id:103,name:'Vineer Bijili',category:'Rockets',qty:'1pc',price:50,emoji:'⚡'},
+  {id:104,name:'CAT Small Bijili',category:'Rockets',qty:'1pc',price:30,emoji:'⚡'},
+  {id:105,name:'Rocket Small Siren',category:'Rockets',qty:'10pcs',price:30,emoji:'🚀'},
+  {id:106,name:'Rocket Big Siren',category:'Rockets',qty:'10pcs',price:60,emoji:'🚀'},
+  {id:107,name:'Rocket Double Sound',category:'Rockets',qty:'10pcs',price:35,emoji:'🚀'},
+  {id:108,name:'Rocket Triple Sound',category:'Rockets',qty:'10pcs',price:35,emoji:'🚀'},
+  {id:109,name:'Rocket Bomb',category:'Rockets',qty:'10pcs',price:20,emoji:'🚀'},
+];
+
+const CATEGORIES = ['All',...[...new Set(PRODUCTS.map(p=>p.category))]];
+
+// ===================== STATE =====================
+let cart = {};
+let wishlist = new Set();
+let currentCategory = 'All';
+let orders = JSON.parse(localStorage.getItem('vf_orders')||'[]');
+let addCounts = {};
+
+// ===================== INIT =====================
+function init(){
+  buildCategoryPills();
+  renderProducts();
+  renderCart();
+  updateCountdown();
+  setInterval(updateCountdown,1000);
+  updateAdminStats();
+  startFireworks();
+}
+
+function buildCategoryPills(){
+  const pills = document.getElementById('catPills');
+  pills.innerHTML = '';
+  CATEGORIES.forEach(cat=>{
+    const b = document.createElement('button');
+    b.className='cat-pill'+(cat==='All'?' active':'');
+    const icons = {'All':'✨','Fancy Crackers':'🎆','Sparklers':'✨','Flower Pots':'🌼','Ground Chakkars':'🌀','Laxmi Bombs':'🪔','Atom Bombs':'💣','String Crackers':'🎉','Rockets':'🚀'};
+    b.textContent = (icons[cat]||'🎇')+' '+cat;
+    b.onclick=()=>filterCategory(cat);
+    pills.appendChild(b);
+  });
+}
+
+function getFilteredProducts(){
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const maxP = parseInt(document.getElementById('priceFilter').value);
+  const sort = document.getElementById('sortSelect').value;
+  let list = PRODUCTS.filter(p=>{
+    const matchCat = currentCategory==='All'||p.category===currentCategory;
+    const matchQ = p.name.toLowerCase().includes(q)||p.category.toLowerCase().includes(q);
+    const matchP = p.price<=maxP;
+    return matchCat&&matchQ&&matchP;
+  });
+  if(sort==='low') list.sort((a,b)=>a.price-b.price);
+  else if(sort==='high') list.sort((a,b)=>b.price-a.price);
+  else if(sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  return list;
+}
+
+function renderProducts(){
+  const grid = document.getElementById('productsGrid');
+  const list = getFilteredProducts();
+  document.getElementById('resultCount').textContent = list.length+' products';
+  if(!list.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);">😔 No products found. Try a different search or filter.</div>';
+    return;
+  }
+  grid.innerHTML = list.map(p=>{
+    const inCart = cart[p.id]&&cart[p.id].qty>0;
+    const isWish = wishlist.has(p.id);
+    const selQty = (cart[p.id]&&cart[p.id].qty)||1;
+    return `<div class="product-card" id="pc-${p.id}">
+      ${inCart?`<div class="in-cart-badge">In Cart</div>`:''}
+      <div class="product-img">
+        <span>${p.emoji}</span>
+        <div class="zoom-overlay">🔍 View Details</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category-tag">${p.category}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-qty-info">Pack: ${p.qty}</div>
+        <div class="product-price">₹${p.price} <span>per pack</span></div>
+        <div class="product-actions">
+          <div class="qty-ctrl">
+            <button onclick="changeQty(${p.id},-1)">−</button>
+            <span id="qty-${p.id}">${selQty}</span>
+            <button onclick="changeQty(${p.id},1)">+</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(${p.id})">🛒 Add</button>
+          <button class="wishlist-btn${isWish?' active':''}" onclick="toggleWishlist(${p.id})" title="Wishlist">${isWish?'❤️':'🤍'}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterCategory(cat){
+  currentCategory = cat;
+  document.querySelectorAll('.cat-pill').forEach(b=>{
+    b.classList.toggle('active', b.textContent.includes(cat)||(cat==='All'&&b.textContent.includes('All')));
+  });
+  renderProducts();
+}
+
+function filterProducts(){ renderProducts(); }
+
+function updatePriceLabel(){
+  document.getElementById('priceLabel').textContent='₹'+document.getElementById('priceFilter').value;
+}
+
+function syncSearch(el){
+  document.getElementById('searchInput').value=el.value;
+  filterProducts();
+}
+
+// ===================== CART =====================
+function getSelQty(id){
+  const el = document.getElementById('qty-'+id);
+  return el?parseInt(el.textContent)||1:1;
+}
+
+function changeQty(id,delta){
+  const el = document.getElementById('qty-'+id);
+  if(!el)return;
+  let v = Math.max(1,parseInt(el.textContent)+delta);
+  el.textContent=v;
+  if(cart[id]) { cart[id].qty=v; renderCart(); }
+}
+
+function addToCart(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const qty = getSelQty(id);
+  if(cart[id]) cart[id].qty+=qty;
+  else cart[id]={...p,qty};
+  addCounts[id]=(addCounts[id]||0)+1;
+  renderCart();
+  renderProducts();
+  updateAdminStats();
+  showToast(`✅ ${p.name} added to cart!`);
+}
+
+function renderCart(){
+  const count = Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent=count;
+  const itemsEl = document.getElementById('cartItems');
+  const items = Object.values(cart).filter(i=>i.qty>0);
+  if(!items.length){
+    itemsEl.innerHTML='<div class="empty-cart"><div>🛒</div>Your cart is empty.<br/>Add some products to get started!</div>';
+    document.getElementById('cartTotal').textContent='₹0';
+    return;
+  }
+  const total = items.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('cartTotal').textContent='₹'+total;
+  document.getElementById('custTotal').value='₹'+total;
+  itemsEl.innerHTML = items.map(i=>`
+    <div class="cart-item">
+      <div class="cart-item-emoji">${i.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-price">₹${i.price} × ${i.qty} = ₹${i.price*i.qty}</div>
+        <div class="cart-item-qty">
+          <button onclick="cartChangeQty(${i.id},-1)">−</button>
+          <span>${i.qty}</span>
+          <button onclick="cartChangeQty(${i.id},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-remove" onclick="removeFromCart(${i.id})">✕</button>
+    </div>`).join('');
+}
+
+function cartChangeQty(id,delta){
+  if(!cart[id])return;
+  cart[id].qty=Math.max(0,cart[id].qty+delta);
+  if(cart[id].qty===0) delete cart[id];
+  renderCart();
+  renderProducts();
+}
+
+function removeFromCart(id){
+  delete cart[id];
+  renderCart();
+  renderProducts();
+}
+
+function openCart(){
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartSidebar').classList.add('open');
+}
+
+function closeCart(){
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartSidebar').classList.remove('open');
+}
+
+// ===================== WISHLIST =====================
+function toggleWishlist(id){
+  if(wishlist.has(id)) wishlist.delete(id);
+  else wishlist.add(id);
+  renderProducts();
+  updateAdminStats();
+}
+
+// ===================== ORDER FORM =====================
+function openOrderForm(){
+  const items = Object.values(cart).filter(i=>i.qty>0);
+  if(!items.length){ showToast('🛒 Add items to cart first!'); return; }
+  closeCart();
+  const total = items.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('custTotal').value='₹'+total;
+  document.getElementById('orderSummaryMini').innerHTML=
+    items.map((i,n)=>`<p>${n+1}. ${i.name} ×${i.qty} — ₹${i.price*i.qty}</p>`).join('')+
+    `<p style="margin-top:0.5rem;font-weight:600;color:var(--gold);">💰 Total: ₹${total}</p>`;
+  document.getElementById('orderModal').classList.add('open');
+}
+
+function closeOrderForm(){
+  document.getElementById('orderModal').classList.remove('open');
+}
+
+function validateOrderForm(){
+  let valid=true;
+  const fields=[
+    {id:'custName',err:'err-name',msg:'Please enter your name'},
+    {id:'custPhone',err:'err-phone',msg:'Please enter a valid phone number'},
+    {id:'custAddress',err:'err-address',msg:'Please enter your address'},
+    {id:'custCity',err:'err-city',msg:'Please enter your city'},
+    {id:'custPin',err:'err-pin',msg:'Please enter a valid pincode'},
+  ];
+  fields.forEach(f=>{
+    const val=document.getElementById(f.id).value.trim();
+    const errEl=document.getElementById(f.err);
+    if(!val){ errEl.textContent=f.msg; valid=false; }
+    else errEl.textContent='';
+  });
+  const phone=document.getElementById('custPhone').value.trim();
+  if(phone&&!/^[+\d\s-]{10,15}$/.test(phone)){
+    document.getElementById('err-phone').textContent='Enter a valid phone number';
+    valid=false;
+  }
+  return valid;
+}
+
+function placeWhatsAppOrder(){
+  if(!validateOrderForm())return;
+  const name=document.getElementById('custName').value.trim();
+  const phone=document.getElementById('custPhone').value.trim();
+  const addr=document.getElementById('custAddress').value.trim();
+  const city=document.getElementById('custCity').value.trim();
+  const state=document.getElementById('custState').value.trim();
+  const pin=document.getElementById('custPin').value.trim();
+  const items=Object.values(cart).filter(i=>i.qty>0);
+  const total=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const itemLines=items.map((i,n)=>`${n+1}. ${i.name} x${i.qty} — ₹${i.price*i.qty}`).join('\n');
+  const fullAddr=`${addr}, ${city}, ${state} - ${pin}`;
+  const msg=`🪔 *Vasavi Crackers - My Order List* 🪔\n\n${itemLines}\n\n👤 *Customer Details*\nName: ${name}\nPhone: ${phone}\nAddress: ${fullAddr}\n\n💰 *Total: ₹${total}*\n\nPlease confirm my order!`;
+  const url=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  const order={id:Date.now(),name,phone,items:items.map(i=>({name:i.name,qty:i.qty,price:i.price})),total,time:new Date().toLocaleString()};
+  orders.unshift(order);
+  localStorage.setItem('vf_orders',JSON.stringify(orders.slice(0,50)));
+  window.open(url,'_blank');
+  cart={};
+  renderCart();
+  renderProducts();
+  closeOrderForm();
+  updateAdminStats();
+  showToast('🎉 Opening WhatsApp with your order!');
+}
+
+// ===================== ADMIN =====================
+function updateAdminStats(){
+  document.getElementById('stat-total-orders').textContent=orders.length;
+  document.getElementById('stat-products').textContent=PRODUCTS.length;
+  document.getElementById('stat-categories').textContent=CATEGORIES.length-1;
+  document.getElementById('stat-wishlist').textContent=wishlist.size;
+  const ordersEl=document.getElementById('adminOrders');
+  if(!orders.length){ ordersEl.innerHTML='<p style="font-size:0.82rem;color:var(--text-muted);">No orders yet.</p>'; return; }
+  ordersEl.innerHTML=orders.slice(0,5).map(o=>`
+    <div class="admin-order-row">
+      <div><strong>${o.name}</strong> — ₹${o.total}</div>
+      <div style="color:var(--text-muted);font-size:0.72rem;">${o.time}</div>
+      <span class="order-status">Via WhatsApp</span>
+    </div>`).join('');
+  const pop=Object.entries(addCounts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  document.getElementById('popularProducts').innerHTML=pop.length?
+    pop.map(([id,c])=>{const p=PRODUCTS.find(x=>x.id==id);return p?`<div style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--card-border);font-size:0.8rem;"><span>${p.emoji} ${p.name}</span><span style="color:var(--gold);">${c}x added</span></div>`:''}).join(''):
+    '<p style="font-size:0.82rem;color:var(--text-muted);">Add products to see popularity.</p>';
+}
+
+// ===================== COUNTDOWN =====================
+function updateCountdown(){
+  const diwali=new Date('2025-10-20T00:00:00');
+  const now=new Date();
+  let diff=diwali-now;
+  if(diff<0){ diff=0; }
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('cd-days').textContent=String(d).padStart(2,'0');
+  document.getElementById('cd-hrs').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-min').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-sec').textContent=String(s).padStart(2,'0');
+}
+
+// ===================== THEME =====================
+function toggleTheme(){
+  document.body.classList.toggle('light');
+}
+
+// ===================== MOBILE MENU =====================
+function toggleMobileMenu(){
+  const m=document.getElementById('mobileMenu');
+  m.style.display=m.style.display==='flex'?'none':'flex';
+}
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').style.display='none';
+}
+
+// ===================== TOAST =====================
+function showToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:#1a0a1e;border:1px solid rgba(255,179,0,0.4);border-radius:10px;padding:0.65rem 1.25rem;font-size:0.85rem;color:#fff;z-index:5000;box-shadow:0 4px 20px rgba(0,0,0,0.5);white-space:nowrap;';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2800);
+}
+
+// ===================== FIREWORKS CANVAS =====================
+function startFireworks(){
+  const canvas=document.getElementById('fireworks-canvas');
+  const ctx=canvas.getContext('2d');
+  let particles=[];
+  let rockets=[];
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  function randomColor(){const c=['#FFB300','#FF6D00','#E91E63','#9C27B0','#00BCD4','#FFFFFF','#FF5722','#CDDC39'];return c[Math.floor(Math.random()*c.length)];}
+  function launchRocket(){
+    rockets.push({x:Math.random()*canvas.width,y:canvas.height,vx:(Math.random()-0.5)*2,vy:-(Math.random()*6+8),color:randomColor(),life:1});
+  }
+  function explode(x,y,color){
+    const n=60+Math.random()*40;
+    for(let i=0;i<n;i++){
+      const angle=Math.random()*Math.PI*2;
+      const spd=Math.random()*5+1;
+      particles.push({x,y,vx:Math.cos(angle)*spd,vy:Math.sin(angle)*spd,color,size:Math.random()*3+1,life:1,decay:Math.random()*0.02+0.01});
+    }
+  }
+  setInterval(launchRocket,800);
+  function frame(){
+    ctx.fillStyle='rgba(13,2,8,0.15)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    rockets=rockets.filter(r=>{
+      r.x+=r.vx; r.y+=r.vy; r.vy+=0.15; r.life-=0.012;
+      ctx.beginPath();ctx.arc(r.x,r.y,2,0,Math.PI*2);ctx.fillStyle=r.color;ctx.fill();
+      if(r.life<=0||r.vy>0){explode(r.x,r.y,r.color);return false;}
+      return true;
+    });
+    particles=particles.filter(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.life-=p.decay; p.size*=0.97;
+      ctx.globalAlpha=Math.max(0,p.life);
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();
+      ctx.globalAlpha=1;
+      return p.life>0;
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+window.onload=init;
+</script>
+</body>
+</html>
